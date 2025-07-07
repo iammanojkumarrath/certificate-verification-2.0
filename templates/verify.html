@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify File</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-64 bg-blue-800 text-white flex flex-col">
+      <div class="p-4 text-2xl font-bold">File System</div>
+      <nav class="flex-1">
+        <a href="/" class="block p-4 hover:bg-blue-700">Home</a>
+        <a href="/upload" class="block p-4 hover:bg-blue-700">Upload File</a>
+        <a href="/verify" class="block p-4 bg-blue-700">Verify File</a>
+      </nav>
+    </div>
+    <!-- Main Content -->
+    <div class="flex-1 p-8">
+      <h1 class="text-3xl font-bold mb-4">Verify File</h1>
+      {% if error %}
+        <p class="text-red-500 mb-4">{{ error }}</p>
+      {% else %}
+        <p class="text-lg mb-4">Enter a certificate ID to view the QR code or download the CSV file.</p>
+        <form method="GET" action="/verify" class="mb-4">
+          <input type="text" name="certificate_id" placeholder="Enter Certificate ID" class="p-2 border rounded">
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Generate QR Code</button>
+        </form>
+        {% if certificate_id %}
+          <img src="/static/qrcodes/{{ certificate_id }}.png" alt="QR Code" class="mb-4" onerror="this.alt='QR Code not found'; this.src='';">
+          <p class="text-lg">Scan the QR code with your phone to download the CSV file.</p>
+          <a href="/verify_download/{{ certificate_id }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 inline-block mt-4">Download CSV Manually</a>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>
