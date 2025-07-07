@@ -63,8 +63,7 @@ def upload_csv():
                 qr_img.save(qr_path)
                 
                 query = """
-                    INSERT INTO certificates (certificate_idસ
-                    certificate_id, recipient_name, course_title, issue_date, verification_url, csv_file_path)
+                    INSERT INTO certificates (certificate_id, recipient_name, course_title, issue_date, verification_url, csv_file_path)
                     VALUES (%s, %s, %s, %s, %s, %s)
                 """
                 values = (
@@ -104,7 +103,6 @@ def verify():
         if not certificate or not certificate['csv_file_path']:
             return render_template('verify.html', error='Certificate or CSV file not found', certificate_id=certificate_id)
         
-        # Render verify.html with QR code
         return render_template('verify.html', certificate_id=certificate_id)
     except Exception as e:
         return render_template('verify.html', error=f'Error retrieving certificate: {str(e)}', certificate_id=certificate_id)
