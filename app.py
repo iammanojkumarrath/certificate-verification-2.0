@@ -63,7 +63,8 @@ def upload_csv():
                 qr_img.save(qr_path)
                 
                 query = """
-                    INSERT INTO certificates (certificate_id, recipient_name, course_title, issue_date, verification_url, csv_file_path)
+                    INSERT INTO certificates (certificate_idસ
+                    certificate_id, recipient_name, course_title, issue_date, verification_url, csv_file_path)
                     VALUES (%s, %s, %s, %s, %s, %s)
                 """
                 values = (
